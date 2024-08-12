@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>圖片播放</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: black; /* 如果圖片未加載，則顯示黑色背景 */
+        }
+        #slideshow {
+            max-width: 100%;
+            max-height: 100%;
+        }
+        img {
+            width: 100%;
+            height: auto;
+            max-height: 100vh;
+            max-width: 100vw;
+            object-fit: contain; /* 保持圖片的原始比例 */
+            transition: opacity 1s ease-in-out; /* 添加淡入淡出的效果 */
+        }
+    </style>
+</head>
+<body>
+
+<div id="slideshow">
+    <img id="slideshow-image" src="" alt="Slideshow Image">
+</div>
+
+<script>
+const images = [
+    "./img/1-1.png",
+    "./img/1-2.jpg",
+    "./img/1-3.png",
+    "./img/1-4.jpg",
+    "./img/1-5.png",
+    "./img/1-6.jpg",
+    "./img/1-7.png",
+    "./img/1-8.jpg",
+    "./img/1-9.png",
+    "./img/1-10.jpg"
+];
+
+let currentImageIndex = 0;
+const imgElement = document.getElementById("slideshow-image");
+
+function changeBackgroundImage() {
+    imgElement.style.opacity = 0; // 先將圖片透明度設為0（淡出效果）
+    setTimeout(() => {
+        imgElement.src = images[currentImageIndex];
+        imgElement.style.opacity = 1; // 再將圖片透明度設為1（淡入效果）
+        currentImageIndex = (currentImageIndex + 1) % images.length;
+
+        // 檢查是否播放完一輪
+        if (currentImageIndex === 0) {
+            setTimeout(() => {
+                window.location.href = "login.html"; // 導向到 login.html
+            }, 2000); // 2秒延遲，以便用戶能看到最後一張圖片
+        }
+    }, 500); // 500毫秒的淡出時間，然後更換圖片
+}
+
+setInterval(changeBackgroundImage, 2500); // 每2.5秒更換圖片
+changeBackgroundImage(); // 初始化顯示第一張圖片
+</script>
+
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>等待倒數計時</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end; /* 文字向下對齊 */
+            background-image: url('7.jpg'); /* 設置背景圖片 */
+            background-size: cover; /* 背景圖像全屏覆蓋 */
+            background-position: center; /* 背景圖像居中 */
+            color: white; /* 設置文字顏色 */
+            font-family: Arial, sans-serif;
+            text-align: center;
+            font-size: 3vw; /* 使用相對字體大小，根據螢幕寬度調整 */
+            text-shadow: 2px 2px 4px #000; /* 添加文字陰影 */
+        }
+        #countdown {
+            background-color: rgba(0, 0, 0, 0.5); /* 半透明背景 */
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 40px; /* 調整距離底部的間距 */
+        }
+    </style>
+</head>
+<body>
+
+<div id="countdown">
+    <div id="time"></div>
+</div>
+
+<script>
+    // 設置目標時間
+    const targetDate = new Date("2024-08-14T00:00:00");
+
+    function updateCountdown() {
+        const now = new Date();
+        const difference = targetDate - now;
+
+        if (difference <= 0) {
+            document.getElementById("time").innerText = "時間到了！";
+            clearInterval(countdownInterval);
+            return;
+        }
+
+        const hours = Math.floor(difference / (1000 * 60 * 60));
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+        document.getElementById("time").innerText = `最終七夕網頁開放倒數時間: ${hours} 小時 ${minutes} 分鐘 ${seconds} 秒 \n 敬請阿莫大人期待!`;
+    }
+
+    const countdownInterval = setInterval(updateCountdown, 1000);
+    updateCountdown(); // 初始化計時器
+</script>
+
+</body>
+</html>

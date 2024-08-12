@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>情人節</title>
+    <style>
+        body {
+            font-family: monospace;
+            white-space: pre;
+            text-align: center;
+            font-size: 4vw; /* 使用相對字體大小，根據螢幕寬度調整 */
+            line-height: 1.5;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        #scene {
+            transition: all 1s ease;
+            max-width: 100%; /* 確保場景寬度不超出螢幕 */
+            overflow: hidden;
+        }
+        #subtitle {
+            font-size: 5vw; /* 字幕也使用相對字體大小 */
+            margin-top: 10px;
+            max-width: 90%;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="scene"></div>
+    <div id="subtitle"></div>
+
+    <script>
+        const scenes = [
+            {
+                art: `           
+             (•.•)      (•.•)
+            <)  )\\     /(  (>
+            /   \\       /  \\  
+                `,
+                subtitle: "右(阿元) 左(阿莫)..."
+            },
+            {
+                art: `
+             (•.•)    (•.•)
+            <)  )\\   /(  (>
+            /   \\     /  \\  
+                `,
+                subtitle: "阿元:阿莫你過來一下!"
+            },
+            {
+                art: `
+             (•.•) (•.•)
+            <)  )\\/(  (>
+            /   \\  /  \\  
+                `,
+                subtitle: "越來越近了..."
+            },
+            {
+                art: `
+            (•.•) (•.•)
+            <)  )O(  (>
+            /   \\ /  \\  
+                `,
+                subtitle: "阿元:手手給我，指甲都白白的！"
+            },
+            {
+                art: `
+            (•.•) (•.•)
+            <)  )=(  (>
+            /   \\ / \\  
+                `,
+                subtitle: "阿元:來親親模式！"
+            },
+            {
+                art: `
+            (•.•)♥(•.•)
+            <)  )=(  (>
+            /   \\/  \\  
+                `,
+                subtitle: "阿元:BB!! 再親20次！"
+            }
+        ];
+
+        let currentScene = 0;
+
+        function updateScene() {
+            document.getElementById('scene').innerText = scenes[currentScene].art;
+            document.getElementById('subtitle').innerText = scenes[currentScene].subtitle;
+            currentScene++;
+
+            if (currentScene < scenes.length) {
+                setTimeout(updateScene, 1000);  // 每1000毫秒更新一次
+            } else {
+                setTimeout(showAlert, 1000); // 動畫結束後1秒顯示彈窗
+            }
+        }
+
+        function showAlert() {
+            let userChoice = confirm("阿莫，要不要去坐纜車？\n\n選擇“確定”去坐纜車，選擇“取消”繼續親親。");
+            if (userChoice) {
+                window.location.href = "car.html";
+            } else {
+                currentScene = 0;
+                updateScene();
+            }
+        }
+
+        updateScene(); // 開始動畫
+    </script>
+</body>
+</html>

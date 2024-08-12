@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登入頁面</title>
+    <!-- 引入Bootstrap CSS -->
+    <link href="bootstrap.min.css" rel="stylesheet">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: url('6.jpg'); /* 設置背景圖片 */
+            background-size: cover; /* 背景圖像全屏覆蓋 */
+            background-position: center; /* 背景圖像居中 */
+            background-repeat: no-repeat; /* 背景圖像不重複 */
+        }
+        .card {
+            background-color: rgba(255, 255, 255, 0.85); /* 半透明白色背景，保留表單可讀性 */
+            border-radius: 15px;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+            font-size: 18px;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="card p-4 shadow-lg" style="width: 100%; max-width: 400px;">
+        <h2 class="card-title text-center mb-4">來晚的七夕快樂!</h2>
+        <form id="loginForm">
+            <div class="mb-3">
+                <label for="username" class="form-label">屁屁名稱</label>
+                <input type="text" class="form-control" id="username" placeholder="阿莫電話暱稱" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">密碼</label>
+                <input type="password" class="form-control" id="password" placeholder="紀念日" required>
+            </div>
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary">登入</button>
+            </div>
+            <div id="error-message" class="text-danger mt-3" style="display: none;">
+                答錯囉，屁屁寶!!，要多吃一點啊
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- 引入Bootstrap JS和Popper.js -->
+<script src="popper.min.js"></script>
+<script src="bootstrap.min.js"></script>
+
+<script>
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        // 檢查帳號和密碼是否正確
+        if (username === '大美女' && password === '1203') {
+            window.location.href = 'wait.html';
+        } else {
+            document.getElementById('error-message').style.display = 'block';
+        }
+    });
+</script>
+
+</body>
+</html>

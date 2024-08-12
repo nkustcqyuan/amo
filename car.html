@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>手牽手去坐纜車</title>
+    <style>
+        body {
+            font-family: monospace;
+            white-space: pre;
+            text-align: center;
+            font-size: 4vw; /* 使用相對字體大小，根據螢幕寬度調整 */
+            line-height: 1.5;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end; /* 改為向下對齊 */
+            height: 100vh;
+            background-image: url('car.png'); /* 設置背景圖片 */
+            background-size: cover; /* 背景圖像全屏覆蓋 */
+            background-position: center; /* 背景圖像居中 */
+            color: white; /* 設置字體顏色為白色，便於在背景上顯示 */
+            text-shadow: 2px 2px 4px #000; /* 為字體添加陰影，以增強可讀性 */
+        }
+        #scene {
+            transition: all 1s ease;
+            max-width: 100%; /* 確保場景寬度不超出螢幕 */
+            overflow: hidden;
+            background-color: rgba(0, 0, 0, 0.5); /* 圖形後方的半透明背景 */
+            padding: 10px;
+            margin-bottom: 20px; /* 圖形與底部字幕之間的間距 */
+        }
+        #subtitle {
+            font-size: 5vw; /* 字幕也使用相對字體大小 */
+            max-width: 90%;
+            margin: 0 auto;
+            color: #ffeb3b; /* 字幕顏色設置為亮黃色，提高在背景上的可讀性 */
+            background-color: rgba(0, 0, 0, 0.7); /* 字幕後方的半透明背景 */
+            padding: 10px;
+            border-radius: 10px; /* 添加圓角效果 */
+        }
+        #button-container {
+            position: fixed; /* 固定位置 */
+            top: 20px; /* 靠近頂部 */
+            right: 20px; /* 靠近右邊 */
+            display: none; /* 初始化隱藏按鈕 */
+        }
+        .go-button {
+            font-size: 2vw; /* 縮小按鈕字體大小 */
+            padding: 5px 10px; /* 調整按鈕的內距大小 */
+            background-color: #ff5722;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .go-button:hover {
+            background-color: #e64a19;
+            transform: scale(1.05);
+        }
+        .go-button:active {
+            background-color: #d84315;
+        }
+    </style>
+</head>
+<body>
+    <div id="scene"></div>
+    <div id="subtitle"></div>
+    <div id="button-container">
+        <button class="go-button" onclick="location.href='car_result.html'">纜車GO</button>
+    </div>
+
+    <script>
+        const scenes = [
+            {
+                art: `
+             (•.•) (•.•)
+            <)  )\\/(  (>
+            /   \\  /  \\  
+                `,
+                subtitle: "阿元:阿莫牽手手一起去坐纜車!"
+            },
+            {
+                art: `
+            (•.•) (•.•)
+            <)  )O(  (>
+            /   \\ /  \\  
+                `,
+                subtitle: "阿元:莫莫是乖狗狗喔!"
+            },
+            {
+                art: `
+            (•.•) (•.•)
+            <)  )=(  (>
+            /   \\ /  \\  
+                `,
+                subtitle: "阿莫:我的手機放你包包、水也是\n還有髮夾夾你衣服(夾) 謝謝~"
+            },
+            {
+                art: `
+            (•.•)♥(•.•)♥
+            <)  )=(  (>
+            /   \\/   \\  
+                `,
+                subtitle: "到最後到了纜車\n還是要纜車親親之術!!"
+            }
+
+        ];
+
+        let currentScene = 0;
+
+        function updateScene() {
+            document.getElementById('scene').innerText = scenes[currentScene].art;
+            document.getElementById('subtitle').innerText = scenes[currentScene].subtitle;
+
+            currentScene++;
+            if (currentScene < scenes.length) {
+                setTimeout(updateScene, 3000);  // 每2000毫秒更新一次
+            } else {
+                document.getElementById('button-container').style.display = 'block'; // 第一輪結束後顯示按鈕
+                currentScene = 0; // 從頭開始循環
+                setTimeout(updateScene, 3000);
+            }
+        }
+
+        updateScene(); // 開始動畫
+    </script>
+</body>
+</html>

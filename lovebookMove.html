@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>情人節情書動畫</title>
+    <!-- 引入Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <!-- 引入Bootstrap CSS -->
+    <link href="bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f7f7f7;
+            position: relative;
+        }
+        .envelope {
+            position: relative;
+            width: 80vw;
+            height: 80vh;
+            margin: 0 auto;
+            background-color: #ffe4e1;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 10vh; /* 讓空間更居中 */
+            box-sizing: border-box;
+        }
+
+        .envelope-top {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background-color: #ffe4e1;
+            border-radius: 10px;
+            transition: transform 1s ease-in-out;
+            transform-origin: top;
+            z-index: 2;
+        }
+
+        .envelope-open {
+            position: absolute;
+            top: -15vh; /* 讓它位於信封上方 */
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-left: 40vw solid transparent;
+            border-right: 40vw solid transparent;
+            border-bottom: 20vh solid #db2612;
+            transform: translateX(-50%);
+            z-index: 3;
+            display: none; /* 預設隱藏 */
+        }
+
+        .envelope-open.visible {
+            display: block; /* 點擊後顯示開口 */
+        }
+
+        .envelope-top.opened {
+            transform: rotateX(-180deg); /* 信封打開效果 */
+        }
+
+        .photo {
+            position: absolute;
+            width: 20vh;
+            height: 15vh;
+            background-size: cover;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transition: all 1s ease-in-out;
+            z-index: 1;
+        }
+        .photo1 { background-image: url('1.jpg'); top: 50%; left: 50%; transform: translate(-50%, -50%); }
+        .photo2 { background-image: url('2.jpg'); top: 50%; left: 50%; transform: translate(-50%, -50%); }
+        .photo3 { background-image: url('3.jpg'); top: 50%; left: 50%; transform: translate(-50%, -50%); }
+        .photo4 { background-image: url('4.jpg'); top: 50%; left: 50%; transform: translate(-50%, -50%); }
+
+        .placed {
+            opacity: 1;
+            transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+        }
+        .placed1 { transform: translate(-100px, -200px) rotate(-10deg); }
+        .placed2 { transform: translate(100px, -200px) rotate(10deg); }
+        .placed3 { transform: translate(-100px, 150px) rotate(-10deg); }
+        .placed4 { transform: translate(100px, 150px) rotate(10deg); }
+
+        /* 新增按鈕的樣式 */
+        #openButton {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            background-color: #ff69b4;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* 信封內文字樣式 */
+        .letter-text {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3rem;
+            color: #db2612;
+            text-align: center;
+            line-height: 1.2;
+        }
+    </style>
+</head>
+<body>
+    <button id="openButton">開啟信件</button>
+<div class="envelope" id="envelope">
+    <div class="envelope-open" id="envelope-open"></div>
+    <div class="envelope-top" id="envelope-top"></div>
+    <div class="letter-text">給阿莫的情書</div>
+    <div class="photo photo1" id="photo1"></div>
+    <div class="photo photo2" id="photo2"></div>
+    <div class="photo photo3" id="photo3"></div>
+    <div class="photo photo4" id="photo4"></div>
+</div>
+
+<!-- 引入Bootstrap JS和Popper.js -->
+<script src="popper.min.js"></script>
+<script src="bootstrap.min.js"></script>
+
+<script>
+    function openEnvelope() {
+        const envelopeOpen = document.getElementById('envelope-open');
+        const envelopeTop = document.getElementById('envelope-top');
+        
+        // 顯示信封開口
+        envelopeOpen.classList.add('visible');
+        
+        // 開啟信封蓋子
+        setTimeout(() => {
+            envelopeTop.classList.add('opened');
+        }, 500); // 延遲一點時間後打開信封
+
+        // 顯示照片
+        setTimeout(animatePhotos, 1000);
+    }
+
+    function animatePhotos() {
+        const delay = 1000; // 延遲時間 (毫秒)
+        
+        setTimeout(() => {
+            document.getElementById('photo1').style.opacity = '1';
+            document.getElementById('photo1').style.transform = 'translate(-150px, -200px) rotate(-10deg)';
+        }, delay);
+        setTimeout(() => {
+            document.getElementById('photo2').style.opacity = '1';
+            document.getElementById('photo2').style.transform = 'translate(0px, -100px) rotate(10deg)';
+        }, delay * 2);
+
+        setTimeout(() => {
+            document.getElementById('photo3').style.opacity = '1';
+            document.getElementById('photo3').style.transform = 'translate(-150px, 50px) rotate(-10deg)';
+        }, delay * 3);
+
+        setTimeout(() => {
+            document.getElementById('photo4').style.opacity = '1';
+            document.getElementById('photo4').style.transform = 'translate(0px, 100px) rotate(10deg)';
+        }, delay * 4);
+
+        // 1秒後導向到 lovebook.html
+        setTimeout(() => {
+            window.location.href = "lovebook.html";
+        }, delay * 4 + 2000);
+    }
+
+    document.getElementById('openButton').addEventListener('click', openEnvelope);
+</script>
+
+</body>
+</html>

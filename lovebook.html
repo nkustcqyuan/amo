@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>情人節情書</title>
+    <!-- 引入Bootstrap CSS -->
+    <link href="bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f7f7f7;
+            padding-top: 50px;
+        }
+        .card-custom {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: none;
+        }
+        .envelope {
+            background-color: #ffe4e1;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            position: relative;
+        }
+        .envelope:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+            border-bottom: 50px solid #ffe4e1;
+            transform: translateX(-50%);
+        }
+        .envelope-content {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            font-family: 'Brush Script MT', cursive;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1 class="text-center mb-4">七夕情書</h1>
+
+    <!-- 圖片區域 -->
+    <div class="row">
+        <div class="col-md-6 col-lg-3 mb-4">
+            <div class="card card-custom">
+                <img src="1.jpg" class="card-img-top" alt="情人節圖片1">
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3 mb-4">
+            <div class="card card-custom">
+                <img src="2.jpg" class="card-img-top" alt="情人節圖片2">
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3 mb-4">
+            <div class="card card-custom">
+                <img src="3.jpg" class="card-img-top" alt="情人節圖片3">
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3 mb-4">
+            <div class="card card-custom">
+                <img src="4.jpg" class="card-img-top" alt="情人節圖片4">
+            </div>
+        </div>
+    </div>
+
+    <!-- 信封樣式區域 -->
+    <div class="envelope">
+        <div class="envelope-content">
+            <h2 class="text-center">元氏情書</h2>
+            <form id="feedbackForm">
+                <div class="mb-3">
+                    <label for="recipient" class="form-label">For:</label>
+                    <input type="text" class="form-control" id="recipient" placeholder="阿莫, 我的摯愛" >
+                </div>
+                <div class="mb-3">
+                    <label for="message" class="form-label">情書Content:</label>
+                    <textarea class="form-control" id="message" rows="5" placeholder="親愛的阿莫..." ></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="feedback" class="form-label">反饋Content:</label>
+                    <textarea class="form-control" id="feedback" rows="5" placeholder="阿莫...給我這次卡片的感想，親親~" ></textarea>
+                </div>
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-danger">寄出反饋</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- 引入Bootstrap JS和Popper.js -->
+<script src="popper.min.js"></script>
+<script src="bootstrap.min.js"></script>
+<script>
+    // 使用JavaScript設置預設內容
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('recipient').value = "阿莫大人, 我的摯愛";
+        document.getElementById('message').value = 
+        `dear 阿莫:這次七夕忘記給你禮物了，這裡阿元要道歉下跪，也不知道你想要甚麼，送甚麼東西都不太對，
+        所以我就做了這個東西，這也是我唯一會做的卡片XD，自己亂設計的電子網頁卡片，希望阿莫能夠開開心心忘記所有煩惱，
+        未來還有好多個七夕，有阿莫陪在我身邊都變得快快樂樂，很溫暖的感覺! 愛你寶寶~
+                                                                                            by 阿莫的侍衛
+        `;
+    });
+
+    const webAppUrl = 'https://script.google.com/macros/s/AKfycbxPjO3R-mh_GwXm9fHgXlOdqFlsWtim_x7v0C7_zq6vvtThO_H_7nhZH4i8cMR-X4uO/exec';
+
+    // 讀取反饋內容
+    function loadFeedback() {
+        fetch(webAppUrl)
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('feedback').value = data;
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    // 提交反饋內容
+    document.getElementById('feedbackForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const feedback = document.getElementById('feedback').value;
+
+        fetch(webAppUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `feedback=${encodeURIComponent(feedback)}`
+        })
+        .then(response => response.text())
+        .then(data => {
+            alert('反饋已保存!');
+        })
+        .catch(error => console.error('Error:', error));
+    });
+
+    document.addEventListener('DOMContentLoaded', loadFeedback);
+
+
+</script>
+
+</body>
+</html>

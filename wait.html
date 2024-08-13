@@ -17,8 +17,9 @@
             color: white; /* 設置文字顏色 */
             font-family: Arial, sans-serif;
             text-align: center;
-            font-size: 3vw; /* 使用相對字體大小，根據螢幕寬度調整 */
+            font-size: 5vw; /* 使用相對字體大小，根據螢幕寬度調整 */
             text-shadow: 2px 2px 4px #000; /* 添加文字陰影 */
+
         }
         #countdown {
             background-color: rgba(0, 0, 0, 0.5); /* 半透明背景 */
@@ -26,25 +27,39 @@
             border-radius: 15px;
             margin-bottom: 40px; /* 調整距離底部的間距 */
         }
+        #surpriseButton {
+            display: none; /* 預設隱藏 */
+            margin-top: 20px;
+            padding: 10px 20px;
+
+            background-color: #ff69b4;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            text-shadow: none;
+        }
     </style>
 </head>
 <body>
 
 <div id="countdown">
     <div id="time"></div>
+    <button id="surpriseButton" onclick="location.href='lovebookMove.html'">前往驚喜</button>
 </div>
 
 <script>
     // 設置目標時間
-    const targetDate = new Date("2024-08-14T00:00:00");
+    const targetDate = new Date("2024-08-13T00:00:00");
 
     function updateCountdown() {
         const now = new Date();
         const difference = targetDate - now;
 
         if (difference <= 0) {
-            document.getElementById("time").innerText = "時間到了！";
+            document.getElementById("time").innerText = "時間差不多囉！  ";
             clearInterval(countdownInterval);
+            document.getElementById("surpriseButton").style.display = "block"; // 顯示按鈕
             return;
         }
 
